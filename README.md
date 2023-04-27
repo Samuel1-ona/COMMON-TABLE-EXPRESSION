@@ -23,3 +23,32 @@ SELECT column_name
 FROM CTE_NAME;
 ```
 A recursive SQL common table expression (CTE) is a query that continuously references a previous result until it returns an empty result.
+
+```
+WITH Join_tables AS (
+
+SELECT column_name,                  
+
+DENSE_RANK () OVER ( PARTITION BY column_name 
+ORDER BY column_name  ) AS ranks           -- YOU CAN USE ANY WINDOW FUNCTION OR ANY FUNCTION OF YOUR CHOICE IT CAN BE CASE, TIME ETC.
+
+FROM table_name AS t1
+INNER JOIN table_name AS t2                -- ANY JOIN THAT IS REQUIRED FOR THE PARTICULAR TASK
+ON
+t1.column_name_unique_identifier = t2.column_name_unique_identifier
+
+INNER JOIN  table_name AS t3
+ON
+t1.column_name_unique_identifier = t3.column_name_unique_identifier
+
+GROUP BY column_name 
+)
+
+SELECT j.column_name
+
+FROM Join_tables AS j
+INNER JOIN  table_name AS t4                      -- YOU CAN PERFORM JOIN EVEN AFTER THE CTE 
+ON 
+j.column_name_unique_identifier = t4.column_name_unique_identifier
+ORDER BY column_name ;
+```
