@@ -11,3 +11,15 @@ There are two types of CTEs: Non-recursive CTE and Recursive CTE.
 Non-recursive CTE:
 A non-recursive CTE is a CTE that references itself only once in its definition and does not use the UNION operator. In other words, a non-recursive CTE is a simple SELECT statement that is defined once and then used in another query.
 
+```
+WITH CTE_NAME AS(
+
+SELECT column_name
+
+FROM table_name
+)
+SELECT column_name
+
+FROM CTE_NAME;
+```
+A recursive SQL common table expression (CTE) is a query that continuously references a previous result until it returns an empty result.
